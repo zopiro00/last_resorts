@@ -1,35 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
-/* Free lo-fi / pixel display faces — stand-ins with a Lofi-Forest-like feel.
-   Swap "Pixelify Sans" below for "Silkscreen" or "VT323" to taste. */
-@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Silkscreen:wght@400;700&family=VT323&display=swap');
 
-/* Lofi Forest (Kilotype) — drop the font file in public/fonts/ for this to load.
-   Falls back to IBM Plex Mono until the file is present. */
-@font-face {
-  font-family: "Lofi Forest";
-  src: url("/fonts/LofiForestTrial-Pixel.ttf") format("truetype");
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Lofi Forest Solid";
-  src: url("/fonts/LofiForestTrial-Solid.ttf") format("truetype");
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Exposure";
-  src: url("/fonts/ExposureTrialVAR.ttf") format("truetype");
-  font-weight: 100 900;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Exposure";
-  src: url("/fonts/ExposureTrialVAR-Italic.ttf") format("truetype");
-  font-weight: 100 900;
-  font-style: italic;
-  font-display: swap;
-}
+/* The hero title font (Exposure) is loaded at runtime by src/title.js, so no
+   @font-face is needed here; the essay uses system Arial/Helvetica. */
 
 :root {
   color: #d7d7d2;

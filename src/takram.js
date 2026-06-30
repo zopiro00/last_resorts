@@ -308,7 +308,7 @@ composer.addPass(new EffectPass(camera, groundASCIIEffect));
 
 new PrecomputedTexturesLoader({ format: 'binary' })
   .setType(renderer)
-  .load('/atmosphere', textures => {
+  .load(`${import.meta.env.BASE_URL}atmosphere`, textures => {
     Object.assign(aerialPerspective, textures);
     Object.assign(clouds, textures);
   });

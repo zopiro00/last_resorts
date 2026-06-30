@@ -14,7 +14,7 @@ const TITLE_CENTER_Y = 0.4; // vertical center of the title, as a fraction of th
 const COLOR = '#f9f9f4';
 // ---------------------------------------------------------------------------
 
-const FONT_URL = '/fonts/ExposureTrialVAR.ttf';
+const FONT_URL = `${import.meta.env.BASE_URL}fonts/ExposureTrialVAR.ttf`;
 const FONT_FAMILY = 'ExposureEmbedded';
 
 const app = document.querySelector('#app');
