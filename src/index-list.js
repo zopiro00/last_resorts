@@ -92,40 +92,42 @@ if (mapCloudField && mapCloudCanvas) {
   const context = mapCloudCanvas.getContext('2d');
   const sourceImage = mapCloudField.querySelector('.essay-image');
   const mapPopupBase = `${import.meta.env.BASE_URL}map-popups/`;
+  const mapPopupVersion = '20260701-map-popups-edited';
   const mapPhotoSources = [
-    'dsc00028-1.jpg',
-    'img-6472.jpg',
-    'img-6376.jpg',
-    'img-6347.jpg',
-    'img-6342.jpg',
-    '021ab0bf-e517-42b3-89f1-79a6cafbfff5.jpg',
-    'cab5f357-df02-4781-ab3f-807c98c51c7a.jpg',
-    'img-6170.jpg',
-    'img-6151.jpg',
-    'img-6113.jpg',
-    'img-6087.jpg',
-    'img-6056.jpg',
-    'img-6048.jpg',
-    'img-5214.jpg',
-    'img-5185.jpg',
-    'img-5170-2.jpg',
-    'img-8076.jpg',
-    'img-8741-1.jpg',
-    'img-8044.jpg',
-    'img-8037.jpg',
-    'img-7993.jpg',
-    'img-7873.jpg',
-    'img-3131.jpg',
-    'dsc00080.jpg',
-    'dsc00074-1.jpg',
-    'dsc00056-1.jpg',
-    'img-6326.jpg'
-  ].map(fileName => `${mapPopupBase}${fileName}`);
+    'DSC00028 (1).jpeg',
+    'IMG_6472.jpeg',
+    'IMG_6376.jpeg',
+    'IMG_6347.jpeg',
+    'IMG_6342.jpeg',
+    '021ab0bf-e517-42b3-89f1-79a6cafbfff5.jpeg',
+    'cab5f357-df02-4781-ab3f-807c98c51c7a.jpeg',
+    'IMG_6170.jpeg',
+    'IMG_6151.jpeg',
+    'IMG_6113.jpeg',
+    'IMG_6087.jpeg',
+    'IMG_6056.jpeg',
+    'IMG_6048.jpeg',
+    'IMG_5214.jpg',
+    'IMG_5185.jpg',
+    'IMG_5170 (2).jpg',
+    'IMG_8076.jpeg',
+    'IMG_8741 (1).jpeg',
+    'IMG_8044.jpeg',
+    'IMG_8037.jpeg',
+    'IMG_7993.jpeg',
+    'IMG_7873.jpeg',
+    'IMG_3131.JPG',
+    'DSC00080.jpeg',
+    'DSC00074 (1).jpeg',
+    'DSC00056 (1).jpeg',
+    'IMG_6326.HEIC'
+  ].map(fileName => `${mapPopupBase}${encodeURIComponent(fileName)}?v=${mapPopupVersion}`);
   const photoPreview = document.createElement('div');
   const photoPreviewImage = document.createElement('img');
   const pointer = { x: 0, y: 0, active: false };
   const points = [];
   const loadedPhotoSources = new Set();
+  const availablePhotoSources = [];
   let width = 0;
   let height = 0;
   let pixelRatio = 1;
@@ -143,88 +145,46 @@ if (mapCloudField && mapCloudCanvas) {
 
   mapPhotoSources.forEach(source => {
     const image = new Image();
-    image.onload = () => loadedPhotoSources.add(source);
+    image.onload = () => {
+      loadedPhotoSources.add(source);
+      if (!availablePhotoSources.includes(source)) {
+        availablePhotoSources.push(source);
+        buildImagePoints();
+      }
+    };
     image.src = source;
   });
 
-  const assignPhotoPoints = () => {
-    const usedPoints = new Set();
-    const spiralStep = Math.PI * (3 - Math.sqrt(5));
-
-    mapPhotoSources.forEach((source, index) => {
-      const progress = (index + 0.5) / mapPhotoSources.length;
-      const angle = index * spiralStep;
-      const radius = Math.sqrt(progress) * 0.42;
-      const targetX = width * (0.5 + Math.cos(angle) * radius);
-      const targetY = height * (0.52 + Math.sin(angle) * radius * 0.72);
-      let closestPoint = null;
-      let closestDistance = Infinity;
-
-      points.forEach(point => {
-        if (usedPoints.has(point)) return;
-
-        const distance = Math.hypot(point.baseX - targetX, point.baseY - targetY);
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestPoint = point;
-        }
-      });
-
-      if (!closestPoint) return;
-
-      usedPoints.add(closestPoint);
-      closestPoint.featured = true;
-      closestPoint.photoSource = source;
-      closestPoint.size = Math.max(closestPoint.size * random(3.2, 4.6), random(3.2, 5.2));
-      closestPoint.hoverRadius = random(34, 48);
-      closestPoint.phase += index * 0.37;
-    });
-  };
-
   const buildImagePoints = () => {
-    if (!sourceImage?.complete || !sourceImage.naturalWidth || !width || !height) return;
+    const photoSources = availablePhotoSources.length ? availablePhotoSources : mapPhotoSources;
+    if (!sourceImage?.complete || !sourceImage.naturalWidth || !width || !height || !photoSources.length) return;
 
-    const sampleCanvas = document.createElement('canvas');
-    const sampleContext = sampleCanvas.getContext('2d', { willReadFrequently: true });
-    const sampleWidth = 620;
-    const sampleHeight = Math.max(1, Math.round(sampleWidth * height / width));
-    sampleCanvas.width = sampleWidth;
-    sampleCanvas.height = sampleHeight;
-    sampleContext.drawImage(sourceImage, 0, 0, sampleWidth, sampleHeight);
-
-    const imageData = sampleContext.getImageData(0, 0, sampleWidth, sampleHeight).data;
-    const step = Math.max(1, Math.round(sampleWidth / 360));
     points.length = 0;
 
-    for (let y = 0; y < sampleHeight; y += step) {
-      for (let x = 0; x < sampleWidth; x += step) {
-        const index = (y * sampleWidth + x) * 4;
-        const red = imageData[index];
-        const green = imageData[index + 1];
-        const blue = imageData[index + 2];
-        const alpha = imageData[index + 3] / 255;
-        const brightness = (red + green + blue) / 3;
-        const darkness = 1 - brightness / 255;
+    const spiralStep = Math.PI * (3 - Math.sqrt(5));
 
-        if (alpha < 0.2 || darkness < 0.006) continue;
+    photoSources.forEach((source, index) => {
+      const progress = (index + 0.5) / photoSources.length;
+      const angle = index * spiralStep;
+      const radius = Math.sqrt(progress) * 0.42;
+      const baseX = width * (0.5 + Math.cos(angle) * radius);
+      const baseY = height * (0.52 + Math.sin(angle) * radius * 0.72);
 
-        const baseX = x / sampleWidth * width;
-        const baseY = y / sampleHeight * height;
-        points.push({
-          x: baseX + random(-0.7, 0.7),
-          y: baseY + random(-0.7, 0.7),
-          baseX,
-          baseY,
-          vx: 0,
-          vy: 0,
-          size: random(0.52, 1.08) + darkness * 1.08,
-          phase: random(0, Math.PI * 2),
-          color: `rgba(${Math.round(red * 0.44)}, ${Math.round(green * 0.44)}, ${Math.round(blue * 0.44)}, ${0.58 + darkness * 0.38})`
-        });
-      }
-    }
-
-    assignPhotoPoints();
+      points.push({
+        x: baseX + random(-0.7, 0.7),
+        y: baseY + random(-0.7, 0.7),
+        baseX,
+        baseY,
+        vx: 0,
+        vy: 0,
+        size: random(2.1, 3.2),
+        hoverRadius: random(38, 54),
+        phase: random(0, Math.PI * 2) + index * 0.37,
+        color: 'rgba(255, 255, 255, 0.48)',
+        featured: true,
+        photoSource: source
+      });
+    });
     ready = true;
   };
 
@@ -262,8 +222,6 @@ if (mapCloudField && mapCloudCanvas) {
     lastFrame = time;
 
     context.clearRect(0, 0, width, height);
-    context.fillStyle = '#ffffff';
-    context.fillRect(0, 0, width, height);
 
     if (!ready) {
       window.requestAnimationFrame(drawClouds);
@@ -306,10 +264,10 @@ if (mapCloudField && mapCloudCanvas) {
       context.fill();
 
       if (point.featured) {
-        context.strokeStyle = 'rgba(255, 255, 255, 0.86)';
-        context.lineWidth = 1.4;
+        context.strokeStyle = 'rgba(255, 255, 255, 0.38)';
+        context.lineWidth = 1;
         context.beginPath();
-        context.arc(drawX, drawY, radius + 2.4, 0, Math.PI * 2);
+        context.arc(drawX, drawY, radius + 1.8, 0, Math.PI * 2);
         context.stroke();
 
         if (pointer.active) {
