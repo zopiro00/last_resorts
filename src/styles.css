@@ -561,24 +561,56 @@ h1 {
 }
 
 .section-image-placeholder {
-  display: flex;
+  display: block;
   aspect-ratio: 2066 / 1204;
   min-height: 0;
-  align-items: center;
-  justify-content: center;
   padding: 12px;
   border: 0;
   background:
-    linear-gradient(rgba(5, 5, 5, 0.22), rgba(5, 5, 5, 0.22)),
-    url("/last_resorts/images/what-we-do-placeholder.png") center / cover,
-    url("/images/what-we-do-placeholder.png") center / cover;
-  font-family: "IBM Plex Mono", "Courier New", monospace;
-  font-size: 11px;
-  line-height: 1.3;
-  text-align: center;
-  text-transform: uppercase;
-  color: #ffffff;
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.72);
+    url("/last_resorts/map-popups/021ab0bf-e517-42b3-89f1-79a6cafbfff5.jpg") center / cover,
+    url("/map-popups/021ab0bf-e517-42b3-89f1-79a6cafbfff5.jpg") center / cover;
+}
+
+.section-image-site-context .section-image-placeholder {
+  background-image:
+    url("/last_resorts/map-popups/021ab0bf-e517-42b3-89f1-79a6cafbfff5.jpg"),
+    url("/map-popups/021ab0bf-e517-42b3-89f1-79a6cafbfff5.jpg");
+}
+
+.section-image-annotated-flyover .section-image-placeholder {
+  background-image:
+    url("/last_resorts/map-popups/img-3131.jpg"),
+    url("/map-popups/img-3131.jpg");
+}
+
+.section-image-cloud-gardening .section-image-placeholder {
+  background-image:
+    url("/last_resorts/map-popups/cab5f357-df02-4781-ab3f-807c98c51c7a.jpg"),
+    url("/map-popups/cab5f357-df02-4781-ab3f-807c98c51c7a.jpg");
+}
+
+.section-image-methodology .section-image-placeholder {
+  background-image:
+    url("/last_resorts/map-popups/dsc00028-1.jpg"),
+    url("/map-popups/dsc00028-1.jpg");
+}
+
+.section-image-eagle-nest-story .section-image-placeholder {
+  background-image:
+    url("/last_resorts/map-popups/img-8741-1.jpg"),
+    url("/map-popups/img-8741-1.jpg");
+}
+
+.section-image-oak-truffles-story .section-image-placeholder {
+  background-image:
+    url("/last_resorts/map-popups/img-6056.jpg"),
+    url("/map-popups/img-6056.jpg");
+}
+
+.section-image-potential-scope .section-image-placeholder {
+  background-image:
+    url("/last_resorts/map-popups/img-7873.jpg"),
+    url("/map-popups/img-7873.jpg");
 }
 
 .section-image img {
