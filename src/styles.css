@@ -596,16 +596,18 @@ h1 {
 
 .section-image {
   grid-column: 2;
+  /* sit alongside the paragraph and stretch to its full height */
   grid-row: 2;
+  align-self: stretch;
   margin: 0;
 }
 
 .section-image img {
   display: block;
+  /* Fill the paragraph row's full height; width crops horizontally
+     (object-fit cover) as the page narrows, rather than shrinking. */
   width: 100%;
-  /* Height is viewport-height based so images keep their vertical size
-     as the page width narrows (they crop horizontally via cover). */
-  height: clamp(240px, 30vh, 380px);
+  height: 100%;
   object-fit: cover;
   border: 0;
 }
@@ -1069,6 +1071,8 @@ h1 {
   .section-image {
     grid-column: 1;
     grid-row: 3;
+    align-self: start;
+    height: clamp(240px, 56vw, 360px);
     margin-top: 6px;
   }
 }
