@@ -17,7 +17,30 @@
       ></canvas>
       <div class="hero-fade" aria-hidden="true"></div>
       <p class="hero-subtitle">
-        A protocol for cultivating clouds in the West Mediterranean basin
+        A protocol for cultivating clouds in the West Mediterranean Basin, a
+        project initiated by Last Resorts at
+        <a
+          class="inline-link"
+          href="https://tba21.org/organismoanouno"
+          target="_blank"
+          rel="noopener"
+          >Organismo</a
+        >,
+        <a
+          class="inline-link"
+          href="https://tba21.org/"
+          target="_blank"
+          rel="noopener"
+          >TBA-21</a
+        >,
+        <a
+          class="inline-link"
+          href="https://www.museothyssen.org/"
+          target="_blank"
+          rel="noopener"
+          >Museo Nacional Thyssen-Bornemisza</a
+        >
+        and the Basque Centre for Climate Change (BC3)
       </p>
     </main>
 
@@ -64,28 +87,58 @@
         </section>
 
         <figure class="essay-figure map-figure">
-          <div class="map-cloud-field">
+          <div class="gif-frame">
             <img
-              class="map-background-gif"
-              src="./images/satellite-hydrological-map.gif"
-              alt=""
-              aria-hidden="true"
+              class="gif-display"
+              src="./gifs/satellite-true-colors.gif"
+              alt="Annual cloud-free Landsat observations of the Palancia catchment and Marjal dels Moros (1984–2026)"
             />
-            <img
-              class="essay-image"
-              src="./images/case-study-map.jpg"
-              alt="Map of the Río Palancia valley case study area in northern Valencia"
-            />
-            <canvas class="map-cloud-canvas" aria-hidden="true"></canvas>
           </div>
-          <figcaption>
-            <span class="section-label">Satellite Hydrological map</span>
-            <span class="cap-main">
-              Annual surface water and wetland dynamics (NDWI) across the
-              Palancia catchment and Marjal dels Moros (1984–2026)
-            </span>
-            <span class="cap-main">39.58–39.96° N, 1.02–0.18° W</span>
-          </figcaption>
+          <div class="gif-caption-columns" role="tablist" aria-label="Satellite imagery layer">
+            <div
+              class="gif-caption-option is-active"
+              role="tab"
+              tabindex="0"
+              aria-selected="true"
+              data-gif-src="./gifs/satellite-true-colors.gif"
+              data-gif-alt="Annual cloud-free Landsat observations of the Palancia catchment and Marjal dels Moros (1984–2026)"
+            >
+              <span class="cap-main">Satellite True Colors</span>
+              <span class="cap-alt"
+                >Annual cloud-free Landsat observations of the Palancia
+                catchment and Marjal dels Moros (1984–2026)</span
+              >
+              <a
+                class="cap-coords"
+                href="https://www.google.com/maps/@39.77,-0.60,10z"
+                target="_blank"
+                rel="noopener"
+                >39.58–39.96° N, 1.02–0.18° W</a
+              >
+            </div>
+            <div
+              class="gif-caption-option"
+              role="tab"
+              tabindex="0"
+              aria-selected="false"
+              data-gif-src="./gifs/satellite-hydrological.gif"
+              data-gif-alt="Annual surface water and wetland dynamics (NDWI) across the Palancia catchment and Marjal dels Moros (1984–2026)"
+            >
+              <span class="cap-main">Satellite Hydrological Map</span>
+              <span class="cap-alt"
+                >Annual surface water and wetland dynamics (NDWI) across the
+                Palancia catchment and Marjal dels Moros (1984–2026)</span
+              >
+              <a
+                class="cap-coords"
+                href="https://www.google.com/maps/@39.77,-0.60,10z"
+                target="_blank"
+                rel="noopener"
+                >39.58–39.96° N, 1.02–0.18° W</a
+              >
+            </div>
+          </div>
+          <div class="gif-credit">Imagery: Google Earth</div>
         </figure>
 
         <section class="what-we-do" aria-labelledby="what-we-do-title">
