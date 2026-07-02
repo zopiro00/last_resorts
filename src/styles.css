@@ -218,7 +218,8 @@ h1 {
   position: absolute;
   left: 50%;
   top: 45%;
-  transform: translate(-50%, -50%);
+  /* nudge down by one line-height (1.45em) for breathing room below the title */
+  transform: translate(-50%, calc(-50% + 1.45em));
   z-index: 6;
   margin: 0;
   max-width: min(640px, 88vw);
